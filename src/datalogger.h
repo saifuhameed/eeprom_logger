@@ -16,7 +16,7 @@
 #include <I2C_eeprom.h>
 
 #define EEPROM_SIZE   (32768)
-#define EE24LC32MAXBYTES  (EEPROM_SIZE/8)
+#define EE24LCXXMAXBYTES  (EEPROM_SIZE/8)
 #define DEVICEADDRESS  (0x57)
 
 class DataLogger {
