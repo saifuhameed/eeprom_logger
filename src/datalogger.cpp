@@ -1,5 +1,14 @@
 #include "datalogger.h"
- 
+//**************************************
+// eeprom datalogger 
+// AUTHOR: Saifudheen 
+// Date: 31/10/2019
+// 1) can be used as a standalone datalogger if you log few data per day.
+// 2) Or used as a fallback logging system during server/internet downtimes where you have already
+//    a remote logging system and eeprom data can be uploaded to server easily whenever remote system/internet available
+//    and make room for future downtimes
+// Due to limited capacity of eeprom suggested to use as fall back system
+//**************************************
 I2C_eeprom eeprom (DEVICEADDRESS,EE24LC32MAXBYTES);
 
 uint8_t  DataLogger::readByte(const uint16_t memoryAddress){
