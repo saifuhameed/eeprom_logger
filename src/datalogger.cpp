@@ -10,7 +10,7 @@
 // Due to limited capacity of eeprom suggested to use as fall back system
 // Dependant library I2C_eeprom.h VERSION: 1.2.7
 //**************************************
-I2C_eeprom eeprom (DEVICEADDRESS,EE24LC32MAXBYTES);
+I2C_eeprom eeprom (DEVICEADDRESS,EE24LCXXMAXBYTES);
 
 //@ low level read, kept for advanced user
 uint8_t  DataLogger::readByte(const uint16_t memoryAddress){
