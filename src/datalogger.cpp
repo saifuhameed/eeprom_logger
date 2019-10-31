@@ -8,6 +8,7 @@
 //    a remote logging system and eeprom data can be uploaded to server easily whenever remote system/internet available
 //    and make room for future downtimes
 // Due to limited capacity of eeprom suggested to use as fall back system
+// Dependant library I2C_eeprom.h VERSION: 1.2.7
 //**************************************
 I2C_eeprom eeprom (DEVICEADDRESS,EE24LC32MAXBYTES);
 
