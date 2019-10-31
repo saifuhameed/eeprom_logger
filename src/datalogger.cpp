@@ -12,9 +12,11 @@
 //**************************************
 I2C_eeprom eeprom (DEVICEADDRESS,EE24LC32MAXBYTES);
 
+//@ low level read, kept for advanced user
 uint8_t  DataLogger::readByte(const uint16_t memoryAddress){
     return eeprom.readByte(memoryAddress);
 }
+//@ low level write, kept for advanced user
 uint16_t  DataLogger::readBlock(const uint16_t memoryAddress, uint8_t* buffer, const uint16_t length){
     return eeprom.readBlock(memoryAddress,buffer,length);
 }
@@ -28,12 +30,14 @@ uint16_t DataLogger::init(){
         return nextdatapointer;
 }
 
+//Check validity of timestamp
 uint8_t DataLogger::isvalidTimeStamp(uint32_t tm){
   // FROM Saturday, January 1, 2000 0:00:00 
   //TO Friday, December 31, 2100 0:00:00
   return ((tm>=946684800U) && (tm<4133894400));
 }
 
+//This function find the next available address to write the data. Only called during initialization once every system start 
 uint16_t DataLogger::findLastAddress(){
   uint16_t dataSize=sizeof(DataPacket);  
   nextserial=1; //default starting serial number
@@ -74,18 +78,22 @@ uint8_t DataLogger::logData(DataPacket datapacket){
   return 0;
 }
 
+//@returns number of bytes required to store the datain eeprom
 uint8_t DataLogger::getDataSize(){
       return sizeof(DataPacket);
 }
 
+//@returns next free data pointer to write the data
 uint16_t DataLogger::getNextPointer(){
       return nextdatapointer;
 }
 
+//@manually sets next free data pointer to write the data, only used for fall back system
 void DataLogger::setNextPointer(uint16_t dpointer){
        nextdatapointer=dpointer;
 }
 
+//@gets last written data, only used for fall back system
 DataPacket DataLogger::getLastWrittenData(){
   DataPacket datapacket;
   datapacket.serial=0;
@@ -94,6 +102,8 @@ DataPacket DataLogger::getLastWrittenData(){
 	}	
 	return datapacket;
 }
+
+//@ Clears last written data, only used for fall back system
 void DataLogger::clearLastWrittenData(){
 	uint16_t sz=getDataSize();
 	if(nextdatapointer>=sz){
@@ -106,6 +116,7 @@ void DataLogger::clearLastWrittenData(){
 	}	
 }
 
+//@used to search for data, with selected date period and selected sensor ids
 uint8_t DataLogger::findData (uint32_t timestamp1, uint32_t timestamp2,  uint8_t sens_id[], uint8_t numsensors, DataPacket * datapackets,uint8_t maxmumdata){
        
     uint16_t dataSize=sizeof(DataPacket);
