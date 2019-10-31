@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "RTCLib.h"
+// Dependant library I2C_eeprom.h VERSION: 1.2.7
  
 #define DEBUG_PRINT(x) Serial.print(x)
 #define DEBUG_PRINTLN(x) Serial.println(x)
